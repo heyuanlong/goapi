@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
-	klog "goklmmx/lib/log"
-	kconf "goklmmx/lib/conf"
+	kconf "goapi/lib/conf"
 )
 
 var (
@@ -40,27 +39,3 @@ func MysqlInit()  {
 }
 
 
-func Test()  {
-	rows, err := MysqlClient.Query("SELECT accountId,deviceId FROM account limit 2")
-	if err!= nil {
-		klog.Klog.Println("test mysql fail ")
-		return
-	}
-	defer rows.Close()
-
-	for rows.Next(){
-		var accountId int
-		var deviceId string
-
-		if err := rows.Scan(&accountId,&deviceId); err != nil {
-			klog.Klog.Println(err)
-			return
-		}
-		klog.Klog.Printf("accountId=%v,deviceId=%v",accountId,deviceId)
-	}
-
-	//-------------------------------------------------------------
-	accountId := SelectAccount("xxxxxxxxxx")
-	klog.Klog.Println(accountId)
-
-}

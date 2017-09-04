@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	_ "goapi/work/initial"
 
 	krouter "goapi/work/routers"
 
