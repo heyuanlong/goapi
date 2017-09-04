@@ -6,6 +6,7 @@ import (
 
 	kmysql "goapi/lib/db/mysql"
 	klog "goapi/lib/log"
+	kmodel "goapi/work/models"
 )
 
 func Testmysql(w http.ResponseWriter, r *http.Request) {
@@ -44,22 +45,7 @@ func query()  {
 	}
 }
 func add()  {
-	stmt, err := kmysql.MysqlClient.Prepare(`INSERT log_first_login (accountid,version,logtime) values (?,?,UNIX_TIMESTAMP())`)
-	defer stmt.Close()
-	if err != nil {
-		klog.Klog.Println(err)
-		return
-	}
-	res, err_ := stmt.Exec( 104,"v1.0")
-	if err_ != nil {
-		klog.Klog.Println(err_)
-		return
-	}
-	id, err__ := res.LastInsertId()
-	if err__ != nil {
-		klog.Klog.Println(err__)
-		return
-	}
+	id := kmodel.AddLog(104,"v1.0")
 	klog.Klog.Println(id)
 }
 

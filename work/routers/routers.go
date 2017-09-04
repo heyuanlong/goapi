@@ -15,6 +15,8 @@ func init() {
 func addRouter()  {
 	R.HandleFunc("/", kcontrol.Test)
 	R.HandleFunc("/test1", kcontrol.Test1)
+	R.HandleFunc("/testjson", kcontrol.Testjson)
+
 	R.HandleFunc("/testredis", kcontrol.Testredis)
 	R.HandleFunc("/testmysql", kcontrol.Testmysql)
 }

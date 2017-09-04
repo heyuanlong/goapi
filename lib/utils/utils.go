@@ -8,6 +8,8 @@ import (
 	"time"
 	"net/url"
 	"io/ioutil"
+
+	"github.com/Jeffail/gabs"
 )
 
 func Md5(value string) string {
@@ -28,10 +30,15 @@ func GetRandomString(lens int) string{
 }
 
 //这方式比较特别，按照123456来记忆吧：01月02号 下午3点04分05秒 2006年
-func GetFormatTime(format string ) string{
-	return time.Now().Local().Format(format)
+func GetTimesString( ) string{
+	return time.Now().Format("2006-01-02 15:04:05")
 }
-
+func GetTimes() int64  {
+	return time.Now().Unix()
+}
+func GetTimesNano() int64  {
+	return time.Now().UnixNano()
+}
 
 //urldecode
 func Urldecode(s string) (string){
@@ -45,4 +52,14 @@ func Urlencode(s string) string{
 
 func ReadFile(filePath string) ([]byte, error) {
 	return ioutil.ReadFile(filePath)
+}
+
+
+func GetErrResponse(errcode int,msg string) string {
+	jsonObj := gabs.New()
+	jsonObj.Set(1, "status")
+	jsonObj.Set(errcode, "code")
+	jsonObj.Set(msg, "msg")
+
+	return jsonObj.String()
 }
