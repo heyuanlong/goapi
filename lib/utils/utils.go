@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
+	"net/url"
+	"io/ioutil"
 )
 
 func Md5(value string) string {
@@ -28,4 +30,19 @@ func GetRandomString(lens int) string{
 //这方式比较特别，按照123456来记忆吧：01月02号 下午3点04分05秒 2006年
 func GetFormatTime(format string ) string{
 	return time.Now().Local().Format(format)
+}
+
+
+//urldecode
+func Urldecode(s string) (string){
+	ss,_ := url.QueryUnescape(s)
+	return ss
+}
+//urlencode
+func Urlencode(s string) string{
+	return url.QueryEscape(s)
+}
+
+func ReadFile(filePath string) ([]byte, error) {
+	return ioutil.ReadFile(filePath)
 }
